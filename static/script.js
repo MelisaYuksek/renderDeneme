@@ -1,22 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Sadece bir test yapmak için, sayfa yüklendiğinde otomatik olarak çalışır
-    fetch('/calculate') // Flask'teki '/calculate' endpoint'ine istek gönder
-        .then(response => response.json())
+document.addEventListener("DOMContentLoaded", function() {
+    // Flask sunucusundaki /calculate endpoint'ine istek gönder
+    fetch('/calculate')
+        .then(response => {
+            // Yanıtın başarılı olup olmadığını kontrol et
+            if (!response.ok) {
+                throw new Error('Sunucuya bağlanırken bir hata oluştu.');
+            }
+            return response.json();
+        })
         .then(data => {
-            // Gelen JSON verisini işleyip HTML sayfasında göster
-            const resultElement = document.getElementById('result-text'); // HTML'inizde uygun bir id'ye sahip element olmalı
-            resultElement.textContent = `Hesaplama sonucu: ${data.sonuc}. Mesaj: ${data.mesaj}`;
-            resultElement.style.display = "block"; // Eğer gizliyse göster
+            // Yanıt olarak gelen JSON verisini al
+            const testResultElement = document.getElementById('test-result');
+            testResultElement.style.display = 'block'; // Elementi görünür yap
+            testResultElement.textContent = `API Testi Başarılı: 2 + 2 = ${data.sonuc}! ${data.mesaj}`;
             console.log("Sunucudan gelen veri:", data);
         })
         .catch(error => {
+            // Hata olursa kullanıcıya bilgi ver
+            const testResultElement = document.getElementById('test-result');
+            testResultElement.style.display = 'block';
+            testResultElement.textContent = `Hata: ${error.message}`;
+            testResultElement.style.color = 'red';
             console.error('Test sırasında hata oluştu:', error);
-            const resultElement = document.getElementById('result-text');
-            resultElement.textContent = "Sunucuya bağlanırken bir hata oluştu.";
-            resultElement.style.color = "red";
-            resultElement.style.display = "block";
         });
 });
-
-// Diğer tüm fonksiyonları (örneğin updateRiskScale) yoruma alabilirsiniz.
-// Bu test için sadece yukarıdaki kod yeterlidir.
