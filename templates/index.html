@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Uçuş İptal Tahmini</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="mobile-overlay"></div>
+
+  <div class="top-bar">
+    <div class="search">🔎︎ Ara</div>
+    <div class="lang">🌍︎ TR-INT</div>
+  </div>
+
+  <header>
+    <div class="header-logo">
+       <img src="/static/images/veltrixai2.png" width="60" height="60" alt="Veltrix Logo" />
+  </div>
+    <h1>UÇUŞ İPTAL TAHMİN SİSTEMİ</h1>
+    <nav class="header-nav">
+      <a href="#">TAHMİN YAP</a>
+      <a href="#">UÇUŞ DURUMU</a>
+      <a href="#">HAKKIMIZDA</a>
+      <a href="#">YARDIM</a>
+    </nav>
+    <div class="mobile-menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <main>
+ <div class="container">
+      <form id="flight-form">
+        <div class="flight-selector">
+          <div class="flight-input">
+            <label for="from">Kalkış:</label>
+            <input type="text" id="from" placeholder="Havalimanı seçin" autocomplete="off" readonly />
+            <ul id="from-suggestions" class="suggestions-list"></ul>
+          </div>
+
+          <button type="button" class="swap-btn" id="swap-btn" title="Yer Değiştir">
+            ⇄
+          </button>
+
+          <div class="flight-input">
+            <label for="to">Varış:</label>
+            <input type="text" id="to" placeholder="Havalimanı seçin" autocomplete="off" readonly />
+            <ul id="to-suggestions" class="suggestions-list"></ul>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="departure-datetime">Kalkış Tarihi ve Saati:</label>
+          <input type="text" id="departure-datetime" class="datetime-input" placeholder="Tarih ve saat seçin" readonly />
+          <div id="datetime-picker" class="datetime-picker">
+            <div class="datetime-row">
+              <div>
+                <label for="date-input">Tarih:</label>
+                <input type="date" id="date-input" />
+              </div>
+              <div>
+                <label for="time-input">Saat:</label>
+                <input type="time" id="time-input" />
+              </div>
+            </div>
+            <div class="picker-buttons">
+              <button type="button" class="picker-btn today" id="today-btn">Bugün</button>
+              <button type="button" class="picker-btn cancel" id="cancel-datetime">İptal</button>
+              <button type="button" class="picker-btn confirm" id="confirm-datetime">Onayla</button>
+            </div>
+          </div>
+        </div>
+
+         <div class="input-group">
+          <label for="arrival-datetime">Varış Tarihi ve Saati:</label>
+          <input type="text" id="arrival-datetime" class="datetime-input" placeholder="Tarih ve saat seçin" readonly />
+          <div id="arrival-datetime-picker" class="datetime-picker">
+            <div class="datetime-row">
+              <div>
+                <label for="arrival-date-input">Tarih:</label>
+                <input type="date" id="arrival-date-input" />
+              </div>
+              <div>
+                <label for="arrival-time-input">Saat:</label>
+                <input type="time" id="arrival-time-input" />
+              </div>
+            </div>
+            <div class="picker-buttons">
+              <button type="button" class="picker-btn today" id="arrival-today-btn">Bugün</button>
+              <button type="button" class="picker-btn cancel" id="arrival-cancel-datetime">İptal</button>
+              <button type="button" class="picker-btn confirm" id="arrival-confirm-datetime">Onayla</button>
+            </div>
+          </div>
+        </div>
+
+        
+        <button type="submit" id="submit-btn">Tahmin Et</button>
+      </form>
+
+      <div id="result" class="result" style="display: none;"></div>
+    <!-- Risk Skalası -->
+      <div id="risk-scale" class="risk-scale">
+        <div class="scale-header">
+          <div class="scale-title">İptal Riski Skoru</div>
+          <div id="scale-score" class="scale-score">0.00</div>
+          <div id="scale-level" class="scale-level">Normal Uçuş</div>
+          <div id="scale-description" class="scale-description">Uçuşunuzun iptal edilme riski çok düşük</div>
+        </div>
+        
+        <div class="color-bar-container">
+          <div class="color-bar">
+            <div id="arrow-indicator" class="arrow-indicator">▼</div>
+          </div>
+          <div class="scale-labels">
+            <span>Normal<br>≤0.86</span>
+            <span>Düşük<br>0.86-0.93</span>
+            <span>Yüksek<br>0.93-0.98</span>
+            <span>Çok Yüksek<br>≥0.98</span>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Uçuş İptal Tahmin Sistemi | Tüm hakları saklıdır.</p>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
